@@ -3,17 +3,34 @@ sequenceDiagram
 participant browser
 participant server
 
-    browser->>server: GET https://shop.myshop.com/api/paymentMethods
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
-    server-->>browser: Payment Methods
+    server-->>browser: HTML document
     deactivate server
 
-    Note right of browser: The browser gets the payment methods that are available
-
-    browser->>server: Post https://shop.myshop.com/api/addOrder
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
-    server-->>browser: [{ "status": "order complete", "payment": "selected payment method","date": "2025-1-1" }, ... ]
+    server-->>browser: the css file
     deactivate server
 
-    Note right of browser: new order made by the user
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{"content": "test2","date": "2025-04-07T18:03:04.433Z" }, ... ]
+    deactivate server
+
+    Note right of browser: The browser executes the callback function that renders the notes
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server-->>browser: {"note": "note content" }
+    deactivate server
+
+    Note right of browser: The browser makes request with POST Method to add new note to the page
 ```
